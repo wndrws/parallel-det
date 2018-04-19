@@ -72,5 +72,7 @@ if __name__ == "__main__":
     totalMean, totalIntervalRadius = findMeanEstimate(totalTimesList)
     timeunit = chooseAppropriateTimeUnit(totalMean)
     print("\nResults:")
-    print("  Full program run mean time        = %s" % formatProperly(totalMean, totalIntervalRadius, timeunit))
-    print("  Determinant calculation mean time = %s" % formatProperly(*findMeanEstimate(calcTimesList), timeunit))
+    print("  Full program run mean time        = %s (σ = %.0f us)" % (
+        formatProperly(totalMean, totalIntervalRadius, timeunit), st.sem(totalTimesList)))
+    print("  Determinant calculation mean time = %s (σ = %.0f us)" % (
+        formatProperly(*findMeanEstimate(calcTimesList), timeunit), st.sem(calcTimesList)))
