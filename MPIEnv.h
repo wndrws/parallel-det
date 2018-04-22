@@ -7,7 +7,7 @@
 class MPIEnv {
     int rank;
     int worldSize;
-    char* processorName;
+    char processorName[MPI_MAX_PROCESSOR_NAME];
     MPI_Comm comm = MPI_COMM_WORLD;
     
     SquareMatrix *matrix;
