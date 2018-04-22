@@ -3,6 +3,7 @@ import numpy as np
 import scipy.stats as st
 import math
 import argparse
+import time
 
 def chooseAppropriateTimeUnit(timeInMicros):
     if (timeInMicros / 1000000 > 1):
@@ -59,8 +60,13 @@ if __name__ == "__main__":
     fileWithMatrix = args["fileWithMatrix"]
     print("Performing %d runs of \"%s\" using matrix in \"%s\" file..." % (runsCount, executable, fileWithMatrix))
 
+    outerTimesList = list()
+    print("\r  > Run progress: 0/%d" % runsCount, end="\r")
     for i in range(runsCount):
+        begin = time.perf_counter()
         system("%s %s > NUL" % (executable, fileWithMatrix))
+        end = time.perf_counter()
+        outerTimesList.append((end - begin) * 1000000)
         print("\r  > Run progress: %d/%d" % (i + 1, runsCount), end="\r")
     
     with open(fileWithTotalTimes, "r") as logfile:
@@ -76,3 +82,5 @@ if __name__ == "__main__":
         formatProperly(totalMean, totalIntervalRadius, timeunit), st.sem(totalTimesList)))
     print("  Determinant calculation mean time = %s (σ = %.0f us)" % (
         formatProperly(*findMeanEstimate(calcTimesList), timeunit), st.sem(calcTimesList)))
+    print("  Outer elapased mean time          = %s (σ = %.0f us)" % (
+        formatProperly(*findMeanEstimate(outerTimesList), "s"), st.sem(outerTimesList)))

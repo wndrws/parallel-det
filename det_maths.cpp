@@ -51,9 +51,9 @@ bool operator==(const SquareMatrix& lhs, const SquareMatrix& rhs) {
 ostream& operator<<(ostream& out, const SquareMatrix& m) {
   for (size_t r = 0; r < m.size(); ++r) {
     for (size_t c = 0; c < m.size(); ++c) {
-      cout << setw(3) << m.at(r, c) << (c == m.size() - 1 ? "" : ", ");
+      out << setw(3) << m.at(r, c) << (c == m.size() - 1 ? "" : " ");
     }
-    cout << endl;
+    out << endl;
   }
   return out;
 }
