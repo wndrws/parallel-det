@@ -25,7 +25,6 @@ public:
     int64_t calculateDet(SquareMatrix& m);
     void doAllJobOfWorker();
 private:
-    void initializeMPI();
     void cleanup();
     void broadcastMatrix(SquareMatrix& m);
     void sendEntryCoords(int workerRank);
